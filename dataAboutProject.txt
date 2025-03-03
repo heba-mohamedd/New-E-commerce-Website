@@ -1,0 +1,122 @@
+// "@fortawesome/fontawesome-free"; ////// in dependencies >>> will load in server with project
+
+// function handleValidation(formValues) {
+//     let errors = {};
+//     if (!formValues.name) errors.name = "Name is Required";
+//     else if (!/^[A-Z][a-z]{3,50}$/.test(formValues.name)) {
+//       errors.name =
+//         "the name should start with an uppercase letter followed by 3 to 50 lowercase letters.";
+//     }
+
+//     if (!formValues.email) errors.email = "email is Required";
+//     else if (
+//       !/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/.test(formValues.email)
+//     ) {
+//       errors.email = "Email Invaild";
+//     }
+
+//     if (!formValues.phone) errors.phone = "Phone number is Required";
+//     else if (!/^[0-9]{11}$/.test(formValues.phone))
+//       errors.phone = "Invalid phone number! It must be 11 digits.";
+
+//     if (!formValues.password) {
+//       errors.password = "Password is required";
+//     } else if (
+//       !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\S+$).{8,20}$/.test(
+//         formValues.password
+//       )
+//     ) {
+//       errors.password =
+//         "Password must be 8-20 characters long and include uppercase, lowercase, number, and a special character.";
+//     }
+
+//     if (!formValues.rePassword) {
+//       errors.rePassword = "Confirm Password is required";
+//     } else if (formValues.password !== formValues.rePassword) {
+//       errors.rePassword = "Passwords do not match!";
+//     }
+
+//     return errors;
+//   }
+
+
+
+
+const handleRegister = async (formValues) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users",
+        formValues
+      );
+      if (response.status === 201) navigate("/");
+      console.log("User Registered:", response);
+    } catch (error) {
+      console.error("Registration Error:", error);
+      alert("Failed to register. Please try again.");
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // function handleValidation(formValues) {
+  //   let errors = {};
+  //   if (!formValues.name) errors.name = "Name is Required";
+  //   else if (!/^[A-Z][a-z]{3,50}$/.test(formValues.name)) {
+  //     errors.name =
+  //       "the name should start with an uppercase letter followed by 3 to 50 lowercase letters.";
+  //   }
+
+  //   if (!formValues.email) errors.email = "email is Required";
+  //   else if (
+  //     !/^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,6}$/.test(formValues.email)
+  //   ) {
+  //     errors.email = "Email Invaild";
+  //   }
+
+  //   if (!formValues.phone) errors.phone = "Phone number is Required";
+  //   else if (!/^[0-9]{11}$/.test(formValues.phone))
+  //     errors.phone = "Invalid phone number! It must be 11 digits.";
+
+  //   if (!formValues.password) {
+  //     errors.password = "Password is required";
+  //   } else if (
+  //     !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\S+$).{8,20}$/.test(
+  //       formValues.password
+  //     )
+  //   ) {
+  //     errors.password =
+  //       "Password must be 8-20 characters long and include uppercase, lowercase, number, and a special character.";
+  //   }
+
+  //   if (!formValues.rePassword) {
+  //     errors.rePassword = "Confirm Password is required";
+  //   } else if (formValues.password !== formValues.rePassword) {
+  //     errors.rePassword = "Passwords do not match!";
+  //   }
+
+  //   return errors;
+  // }
+
+  //Yup.string().min(3).max(15).required()
+  //Yup.string().matches(/frefjbier/).required()
+  //Yup.string().email(/bbewfe/)
+
+
+
+
+
+
+
+
