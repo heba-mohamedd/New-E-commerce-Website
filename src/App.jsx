@@ -69,7 +69,7 @@ let routes = createBrowserRouter([
       },
 
       {
-        path: "productsdetails/:id",
+        path: "productsdetails/:id/:category",
         element: (
           <ProtectedRoute>
             <ProductDetails />

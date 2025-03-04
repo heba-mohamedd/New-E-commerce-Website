@@ -18,3 +18,13 @@
 .product .x:hover {
   background-color: #0056b3;
 }
+
+.cardImage {
+  width: 100% !important;
+
+  object-fit: cover !important;
+  display: block;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
