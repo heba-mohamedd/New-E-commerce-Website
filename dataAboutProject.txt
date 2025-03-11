@@ -120,3 +120,21 @@ const handleRegister = async (formValues) => {
 
 
 
+
+
+// const [recentProducts, setRecentProducts] = useState([]);
+
+  // const getRecentProducts = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `https://ecommerce.routemisr.com/api/v1/products`
+  //     );
+  //     setRecentProducts(data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getRecentProducts();
+  // }, []);

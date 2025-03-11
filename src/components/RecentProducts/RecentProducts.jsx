@@ -2,30 +2,44 @@ import React, { useEffect, useState } from "react";
 import Style from "./RecentProducts.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import useProducts from "../../Hooks/useProducts";
 
 const RecentProducts = () => {
-  const [recentProducts, setRecentProducts] = useState([]);
+  // function getRecentProducts() {
+  //   return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
+  // }
 
-  const getRecentProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://ecommerce.routemisr.com/api/v1/products`
-      );
-      setRecentProducts(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // let { data, isError, isFetching, isLoading, error } = useQuery({
+  //   queryKey: ["recentProducts"],
+  //   queryFn: getRecentProducts,
+  // });
+  let { data, isError, isLoading, error } = useProducts();
 
-  useEffect(() => {
-    getRecentProducts();
-  }, []);
+  // console.log(inform);
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="d-flex justify-content-center text-danger">
+        {error?.message || "An error occurred while fetching products."}
+      </div>
+    );
+  }
 
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">Recent Products</h2>
       <div className="row">
-        {recentProducts.map((product) => (
+        {data.map((product) => (
           <div key={product.id} className={`col-md-3 mb-4 ${Style.product}`}>
             <Link
               className="linkClass"

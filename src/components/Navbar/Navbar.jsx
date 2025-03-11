@@ -58,6 +58,11 @@ const Navbar = () => {
                   About
                 </NavLink>
               </li>
+              <li className="p-2">
+                <NavLink className={Style.navbar} to="cart">
+                  cart
+                </NavLink>
+              </li>
             </ul>
           )}
         </div>

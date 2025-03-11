@@ -12,6 +12,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@reduxjs/toolkit": "^2.6.0",
+    "@tanstack/react-query": "^5.67.1",
+    "@tanstack/react-query-devtools": "^5.67.1",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "express": "^4.21.2",
@@ -24,6 +26,7 @@
     "moment": "^2.30.1",
     "nodemon": "^3.1.9",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-slick": "^0.30.3",
