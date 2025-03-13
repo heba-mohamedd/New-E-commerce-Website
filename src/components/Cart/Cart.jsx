@@ -5,10 +5,28 @@ import { Card, Button, Table } from "react-bootstrap";
 
 const Cart = () => {
   const [caryDetails, setcaryDetails] = useState(null);
-  let { getLoggedUserCart } = useContext(cartContext);
+  let { getLoggedUserCart, updataCartItemCount, deleteCartItem, clearCart } =
+    useContext(cartContext);
 
   async function getCartItems() {
     let response = await getLoggedUserCart();
+    console.log(response.data.data);
+    setcaryDetails(response.data.data);
+  }
+
+  async function updataCartCount(productId, count) {
+    let response = await updataCartItemCount(productId, count);
+    console.log(response.data.data);
+    setcaryDetails(response.data.data);
+  }
+
+  async function deleteProductFromCart(productId) {
+    let response = await deleteCartItem(productId);
+    console.log(response.data.data);
+    setcaryDetails(response.data.data);
+  }
+  async function clearCartAll() {
+    let response = await clearCart();
     console.log(response.data.data);
     setcaryDetails(response.data.data);
   }
@@ -37,6 +55,9 @@ const Cart = () => {
 
             <div className="d-flex align-items-center quantity-controls">
               <Button
+                onClick={() =>
+                  updataCartCount(product.product.id, product.count - 1)
+                }
                 variant="outline-secondary"
                 className="rounded-circle mx-1"
               >
@@ -46,6 +67,9 @@ const Cart = () => {
                 {product.count}
               </span>
               <Button
+                onClick={() =>
+                  updataCartCount(product.product.id, product.count + 1)
+                }
                 variant="outline-secondary"
                 className="rounded-circle mx-1"
               >
@@ -53,7 +77,11 @@ const Cart = () => {
               </Button>
             </div>
 
-            <Button variant="outline-danger" className="ms-3">
+            <Button
+              onClick={() => deleteProductFromCart(product.product.id)}
+              variant="outline-danger"
+              className="ms-3"
+            >
               Remove
             </Button>
           </div>
@@ -71,6 +99,17 @@ const Cart = () => {
             <tr>
               <td className="fw-bold text-success">
                 ${caryDetails.totalCartPrice}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Button
+                  onClick={clearCartAll}
+                  variant="outline-danger"
+                  className="ms-3"
+                >
+                  Remove All Cart
+                </Button>
               </td>
             </tr>
           </tbody>

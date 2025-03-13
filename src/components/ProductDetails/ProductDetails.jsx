@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Style from "./ProductDetails.module.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import Slider from "react-slick";
 import index from "./../../../node_modules/resize-observer-polyfill/dist/ResizeObserver.es";
+import RecentProducts from "./../RecentProducts/RecentProducts";
+import { cartContext } from "../../Context/cartContext";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const { id, category } = useParams();
@@ -13,6 +16,24 @@ const ProductDetails = () => {
   const [error, setError] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState(true);
+  let { addProductToCart } = useContext(cartContext);
+  let [currentProductId, setCurrentProductId] = useState(0);
+  const [loadingForButton, setloadingForButton] = useState(false);
+
+  async function addProduct(productId) {
+    setloadingForButton(true);
+    setCurrentProductId(productId);
+    let response = await addProductToCart(productId);
+
+    if (response.data.status === "success") {
+      setloadingForButton(false);
+      toast.success("Product added to cart successfully!");
+    } else {
+      setloadingForButton(false);
+      toast.error("Failed to add product. Please try again.");
+    }
+    console.log(response);
+  }
   var settings = {
     dots: true,
     infinite: true,
@@ -97,7 +118,16 @@ const ProductDetails = () => {
           <h4 className="fw-bold">{productDetails?.title}</h4>
           <p className="text-muted">{productDetails?.description}</p>
           <p className="fw-bold">Price: ${productDetails?.price}</p>
-          <button className={`btn btn-primary  w-100`}>Add to Cart</button>
+          <button
+            className={`btn btn-primary  w-100`}
+            onClick={() => addProduct(productDetails?.id)}
+          >
+            {currentProductId === productDetails.id && loadingForButton ? (
+              <i className="fas fa-spinner fa-spin"></i>
+            ) : (
+              "Add to Cart"
+            )}
+          </button>
         </div>
       </div>
 
@@ -135,8 +165,19 @@ const ProductDetails = () => {
                         <i className=" text-warning fa-solid fa-star"></i>
                       </span>
                     </div>
-                    <button className={`btn btn-primary w-100  ${Style.x}`}>
-                      Add to Cart
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        addProduct(product.id);
+                      }}
+                      className={`btn btn-primary w-100 ${Style.x}`}
+                    >
+                      {currentProductId === product.id && loadingForButton ? (
+                        <i className="fas fa-spinner fa-spin"></i>
+                      ) : (
+                        "Add to Cart"
+                      )}
                     </button>
                   </div>
                 </Link>

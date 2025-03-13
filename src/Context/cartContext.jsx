@@ -8,14 +8,74 @@ export default function CartContextProvider(props) {
     token: localStorage.getItem("userToken"),
   };
 
+  function addProductToCart(productId) {
+    return axios
+      .post(
+        `https://ecommerce.routemisr.com/api/v1/cart`,
+        { productId: productId },
+        { headers }
+      )
+      .then((response) => response)
+      .catch((error) => {
+        console.error("Error adding product to cart:", error);
+        return error.response?.data || error.message;
+      });
+  }
+
+  function updataCartItemCount(productId, count) {
+    return axios
+      .put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        { count: count },
+        { headers }
+      )
+      .then((response) => response)
+      .catch((error) => {
+        console.error("Error adding product to cart:", error);
+        return error.response?.data || error.message;
+      });
+  }
+  function deleteCartItem(productId) {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+        headers,
+      })
+      .then((response) => response)
+      .catch((error) => {
+        console.error("Error adding product to cart:", error);
+        return error.response?.data || error.message;
+      });
+  }
+
+  function clearCart() {
+    return axios
+      .delete(`https://ecommerce.routemisr.com/api/v1/cart`, {
+        headers,
+      })
+      .then((response) => response)
+      .catch((error) => {
+        console.error("Error adding product to cart:", error);
+        return error.response?.data || error.message;
+      });
+  }
+
   function getLoggedUserCart() {
     return axios
       .get(`https://ecommerce.routemisr.com/api/v1/cart`, { headers })
-      .then((response) => console.log(response))
+      .then((response) => response)
       .catch((error) => error);
   }
+
   return (
-    <cartContext.Provider value={{ getLoggedUserCart }}>
+    <cartContext.Provider
+      value={{
+        getLoggedUserCart,
+        addProductToCart,
+        updataCartItemCount,
+        deleteCartItem,
+        clearCart,
+      }}
+    >
       {props.children}
     </cartContext.Provider>
   );
